@@ -2,6 +2,9 @@ package com.ersin.retrofitkotlin.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.databinding.ActivityMainBinding
 import com.ersin.retrofitkotlin.model.CryptoModel
@@ -17,12 +20,18 @@ class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
     private  val BASE_URL = "https://raw.githubusercontent.com/"
     private  var cryptoModels:ArrayList<CryptoModel>?=null
+    private var recyclerViewAdpder:RecyclerViewAdapder ? = null
+    //private val recyclerViewAdapder by lazy { RecyclerViewAdapder() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         //https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json
-    loadData()
+
+        val layoutManager:RecyclerView.LayoutManager=LinearLayoutManager(this)
+        binding.recyclerView.layoutManager=layoutManager
+
+        loadData()
     }
     private  fun loadData(){
         val retrofit= Retrofit.Builder()
@@ -39,11 +48,17 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     response.body()?.let {
                         cryptoModels= ArrayList(it)
+                        cryptoModels?.let {
+                            recyclerViewAdpder= RecyclerViewAdapder(it)
+                            binding.recyclerView.adapter=recyclerViewAdpder
+                        }
+
+                        /*
                         for (cryptoModel:CryptoModel in cryptoModels!! )
                         {
                             println(cryptoModel.currency)
                             println(cryptoModel.price)
-                        }
+                        }*/
                     }
                 }
             }
