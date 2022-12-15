@@ -1,12 +1,12 @@
 package com.ersin.retrofitkotlin.service
 
+import com.ersin.retrofitkotlin.common.Constants.GET_CRYPTO
 import io.reactivex.Observable
 import com.ersin.retrofitkotlin.model.CryptoModel
-import retrofit2.Call
 import retrofit2.http.GET
 
-interface CryptoAPI {
-    @GET("atilsamancioglu/K21-JSONDataSet/master/crypto.json")
+interface CryptoApiServise {
+    @GET(GET_CRYPTO)
     fun getData():Observable<List<CryptoModel>>
     //fun getData():Call<List<CryptoModel>>
 }

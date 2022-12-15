@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
+import com.ersin.retrofitkotlin.common.Constants.BASE_URL
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.databinding.ActivityMainBinding
 import com.ersin.retrofitkotlin.model.CryptoModel
-import com.ersin.retrofitkotlin.service.CryptoAPI
+import com.ersin.retrofitkotlin.service.CryptoApiServise
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
-    private  val BASE_URL = "https://raw.githubusercontent.com/"
     private  var cryptoModels:ArrayList<CryptoModel>?=null
     private var recyclerViewAdpder:RecyclerViewAdapder ? = null
     //private val recyclerViewAdapder by lazy { RecyclerViewAdapder() }
@@ -36,18 +36,18 @@ class MainActivity : AppCompatActivity() {
         loadData()
     }
     private  fun loadData(){
-        val retrofit= Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(CryptoAPI::class.java)
+            .build().create(CryptoApiServise::class.java)
 
              compositeDisposable?.add(retrofit.getData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::handleResponse))
 /*
-        val service = retrofit.create(CryptoAPI::class.java)
+        val service = retrofit.create(CryptoApiServise::class.java)
         val call= service.getData()
         call.enqueue(object : Callback <List<CryptoModel>>{
             override fun onResponse(
