@@ -27,12 +27,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        //https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json
-
         compositeDisposable = CompositeDisposable()
         val layoutManager:RecyclerView.LayoutManager=LinearLayoutManager(this)
         binding.recyclerView.layoutManager=layoutManager
-
         loadData()
     }
     private  fun loadData(){
@@ -41,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(CryptoApiServise::class.java)
-
              compositeDisposable?.add(retrofit.getData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

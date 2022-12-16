@@ -1,5 +1,9 @@
 package com.ersin.retrofitkotlin.common
 object Constants {
-    const val BASE_URL="https://raw.githubusercontent.com/"
-    const val GET_CRYPTO = "atilsamancioglu/K21-JSONDataSet/master/crypto.json"
+    const val BASE_URL="http://10.0.2.2:8080/"//http://localhost:8080/
+    //10.0.2.2
+    const val GET_PRODUCTS = "api/products/getall"
+
+
+    //https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json
 }
