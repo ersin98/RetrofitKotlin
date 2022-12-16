@@ -26,7 +26,6 @@ class RecyclerViewAdapder(private val cryptoList: ArrayList<CryptoModel>): Recyc
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
        //val view = LayoutInflater.from(parent.context).inflate(R.layout.row_layout,parent,false)
         val binding= RowLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
