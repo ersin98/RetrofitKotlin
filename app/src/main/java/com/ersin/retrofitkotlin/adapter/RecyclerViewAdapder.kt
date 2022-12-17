@@ -2,34 +2,35 @@ package com.ersin.retrofitkotlin.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.ersin.retrofitkotlin.R
-import com.ersin.retrofitkotlin.databinding.ActivityMainBinding
+import com.bumptech.glide.Glide
+import com.ersin.retrofitkotlin.common.Constants.onProductClick
 import com.ersin.retrofitkotlin.databinding.RowLayoutBinding
-import com.ersin.retrofitkotlin.model.CryptoModel
+import com.ersin.retrofitkotlin.data.model.ProductModel
 
-class RecyclerViewAdapder(private val cryptoList: ArrayList<CryptoModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {
-        private  val colors : Array<String> = arrayOf("#182970","#ff476f","#ea33b1","#c8ac80","#eee9d4","#8fc6c6","#028ca1","#25b5af")//hex color codes
-    class RowHolder(private val binding: RowLayoutBinding) :
+
+class RecyclerViewAdapder(private val cryptoList: ArrayList<ProductModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {
+        private  val colors : Array<String> = arrayOf("#dcdcdc","#FFE4E1","#F5F5DC","#F0FFFF","#E6E6FA","#D3D3D3","#C0C0C0","#A9A9A9")//hex color codes
+    class RowHolder(private val binding: RowLayoutBinding,  private val onProductClick: (ProductModel) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(cryptoModel: CryptoModel,colors:Array<String>,position: Int){
+        fun bind(productModel: ProductModel, colors:Array<String>, position: Int){
             with(binding){
-                layout.setBackgroundColor(Color.parseColor(colors[position%8]))
-                layout.setOnClickListener{
-                    Toast.makeText(it.context, "clicked : ${cryptoModel.currency}", Toast.LENGTH_SHORT).show()
+                materyal.setBackgroundColor(Color.parseColor(colors[position%8]))
+                materyal.setOnClickListener{
+                    Toast.makeText(it.context, "clicked : ${productModel.name}", Toast.LENGTH_SHORT).show()
                 }
-                textName.text=cryptoModel.currency
-                textPrice.text=cryptoModel.price
+                textName.text=productModel.name
+                textPrice.text=productModel.parice.toString()
+                Glide.with(binding.imageRow).load(productModel.imageData).into(binding.imageRow)
             }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
        //val view = LayoutInflater.from(parent.context).inflate(R.layout.row_layout,parent,false)
         val binding= RowLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return RowHolder(binding)
+        return RowHolder(binding,onProductClick)
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
