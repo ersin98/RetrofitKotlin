@@ -8,7 +8,5 @@ object Constants {
     //10.0.2.2
     const val GET_PRODUCTS = "api/products/getall"
 
-    var onProductClick: (ProductModel) -> Unit = {}
-
     //https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json
 }

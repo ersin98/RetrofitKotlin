@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
@@ -23,15 +24,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 private val binding by viewBinding (FragmentMainBinding::bind)
-    private var recyclerViewAdpder: RecyclerViewAdapder? = null
+    private var recyclerViewAdapder: RecyclerViewAdapder? = null
     private  var cryptoModels:ArrayList<ProductModel>?=null
     private var compositeDisposable: CompositeDisposable?=null
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
+        recyclerViewAdapder?.onProductClick={
+            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
+            findNavController().navigate(action)
+        }
         //val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         val gridLayoutManager = GridLayoutManager(activity, 2)
         binding.recyclerView.layoutManager = gridLayoutManager
@@ -51,18 +53,14 @@ private val binding by viewBinding (FragmentMainBinding::bind)
          fun handleResponse(cryptoList : List<ProductModel>){
             cryptoModels= ArrayList(cryptoList)
             cryptoModels?.let {
-                recyclerViewAdpder= RecyclerViewAdapder(it)
-                binding.recyclerView.adapter=recyclerViewAdpder
+                recyclerViewAdapder= RecyclerViewAdapder(it)
+                binding.recyclerView.adapter=recyclerViewAdapder
             }
         }
-
         override fun onDestroy() {
             super.onDestroy()
             compositeDisposable?.clear()
         }
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
