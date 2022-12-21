@@ -10,21 +10,22 @@ import com.ersin.retrofitkotlin.databinding.RowLayoutBinding
 import com.ersin.retrofitkotlin.data.model.ProductModel
 
 
-class RecyclerViewAdapder(private val cryptoList: ArrayList<ProductModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {
+class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {
         private  val colors : Array<String> = arrayOf("#dcdcdc","#FFE4E1","#F5F5DC","#F0FFFF","#E6E6FA","#D3D3D3","#C0C0C0","#A9A9A9")//hex color codes
     var onProductClick: (ProductModel) -> Unit = {}
     class RowHolder(private val binding: RowLayoutBinding,  private val onProductClick: (ProductModel) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(productModel: ProductModel, colors:Array<String>, position: Int){
             with(binding){
                 materyal.setBackgroundColor(Color.parseColor(colors[position%8]))
-                materyal.setOnClickListener{
-                    Toast.makeText(it.context, "clicked : ${productModel.title}", Toast.LENGTH_SHORT).show()
-                    onProductClick(productModel)
-                }
                 textName.text=productModel.title
                 textPrice.text=productModel.price.toString()
                 Glide.with(binding.imageRow).load(productModel.imageData).into(binding.imageRow)
+                materyal.setOnClickListener{
+                    Toast.makeText(it.context, "tıklandı : ${productModel.title}", Toast.LENGTH_SHORT).show()
+                    onProductClick(productModel)
+                }
             }
         }
     }
@@ -35,8 +36,8 @@ class RecyclerViewAdapder(private val cryptoList: ArrayList<ProductModel>): Recy
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        holder.bind(cryptoList[position],colors,position)
+        holder.bind(productModelList[position],colors,position)
     }
 
-    override fun getItemCount(): Int =cryptoList.count()
+    override fun getItemCount(): Int =productModelList.count()
 }

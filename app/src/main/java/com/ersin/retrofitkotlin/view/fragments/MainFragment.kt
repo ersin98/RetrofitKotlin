@@ -25,15 +25,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainFragment : Fragment(R.layout.fragment_main) {
 private val binding by viewBinding (FragmentMainBinding::bind)
     private var recyclerViewAdapder: RecyclerViewAdapder? = null
-    private  var cryptoModels:ArrayList<ProductModel>?=null
+    private  var productModels:ArrayList<ProductModel>?=null
     private var compositeDisposable: CompositeDisposable?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
-        recyclerViewAdapder?.onProductClick={
-            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
-            findNavController().navigate(action)
-        }
         //val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         val gridLayoutManager = GridLayoutManager(activity, 2)
         binding.recyclerView.layoutManager = gridLayoutManager
@@ -51,9 +47,13 @@ private val binding by viewBinding (FragmentMainBinding::bind)
                 .subscribe(this::handleResponse))
         }
          fun handleResponse(cryptoList : List<ProductModel>){
-            cryptoModels= ArrayList(cryptoList)
-            cryptoModels?.let {
+             productModels= ArrayList(cryptoList)
+             productModels?.let {
                 recyclerViewAdapder= RecyclerViewAdapder(it)
+                 recyclerViewAdapder!!.onProductClick={
+                     val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
+                     findNavController().navigate(action)
+                 }
                 binding.recyclerView.adapter=recyclerViewAdapder
             }
         }

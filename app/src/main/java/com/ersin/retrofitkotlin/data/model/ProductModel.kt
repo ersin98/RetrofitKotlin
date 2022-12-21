@@ -1,6 +1,5 @@
 package com.ersin.retrofitkotlin.data.model
 
-import android.icu.text.CaseMap.Title
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
