@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ersin.retrofitkotlin.R
@@ -27,6 +28,7 @@ private val binding by viewBinding (FragmentMainBinding::bind)
     private var recyclerViewAdapder: RecyclerViewAdapder? = null
     private  var productModels:ArrayList<ProductModel>?=null
     private var compositeDisposable: CompositeDisposable?=null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
@@ -34,20 +36,44 @@ private val binding by viewBinding (FragmentMainBinding::bind)
         val gridLayoutManager = GridLayoutManager(activity, 2)
         binding.recyclerView.layoutManager = gridLayoutManager
         loadData()
+        binding.serachView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    searchData(it)
+                }
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return false
+            }
+        })
     }
-         fun loadData(){
+        fun compositeSameWork(): ProductApiServise {
             val retrofit= Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(ProductApiServise::class.java)
+            return retrofit
+        }
+         fun loadData(){
+             val retrofit= compositeSameWork()
             compositeDisposable?.add(retrofit.getData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResponse))
         }
-         fun handleResponse(cryptoList : List<ProductModel>){
-             productModels= ArrayList(cryptoList)
+        fun searchData(searchtitle:String){
+            val retrofit= compositeSameWork()
+            compositeDisposable?.add(retrofit.searchPoduct(searchtitle)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResponse))
+        }
+         fun handleResponse(productList : List<ProductModel>){
+
+             productModels= ArrayList(productList)
              productModels?.let {
                 recyclerViewAdapder= RecyclerViewAdapder(it)
                  recyclerViewAdapder!!.onProductClick={
@@ -56,6 +82,7 @@ private val binding by viewBinding (FragmentMainBinding::bind)
                  }
                 binding.recyclerView.adapter=recyclerViewAdapder
             }
+
         }
         override fun onDestroy() {
             super.onDestroy()
@@ -67,5 +94,6 @@ private val binding by viewBinding (FragmentMainBinding::bind)
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
+
 
 }
