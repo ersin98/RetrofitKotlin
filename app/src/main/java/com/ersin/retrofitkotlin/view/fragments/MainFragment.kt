@@ -46,6 +46,10 @@ private val binding by viewBinding (FragmentMainBinding::bind)
         else{
             loadData()
         }
+        binding.button.setOnClickListener{
+            val action = MainFragmentDirections.actionMainFragmentToCreateFragment(null)
+            findNavController().navigate(action)
+        }
         binding.serachView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -87,8 +91,8 @@ private val binding by viewBinding (FragmentMainBinding::bind)
         }
          fun handleResponse(productList : List<ProductModel>){
              productModels= ArrayList(productList)
-             productModels?.let {
-                recyclerViewAdapder= RecyclerViewAdapder(it)
+             productModels?.let { it ->
+                 recyclerViewAdapder= RecyclerViewAdapder(it)
                  recyclerViewAdapder!!.onProductClick={
                      val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
                      findNavController().navigate(action)
