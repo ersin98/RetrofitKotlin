@@ -1,20 +1,20 @@
 package com.ersin.retrofitkotlin.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.databinding.FragmentMainBinding
 import com.ersin.retrofitkotlin.data.model.ProductModel
 import com.ersin.retrofitkotlin.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.databinding.FragmentMainBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,17 +29,30 @@ private val binding by viewBinding (FragmentMainBinding::bind)
     private  var productModels:ArrayList<ProductModel>?=null
     private var compositeDisposable: CompositeDisposable?=null
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         CompositeDisposable().also { compositeDisposable = it }
         //val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         val gridLayoutManager = GridLayoutManager(activity, 2)
         binding.recyclerView.layoutManager = gridLayoutManager
-        loadData()
+        if (savedInstanceState != null) {
+            val savedQuery:String? = savedInstanceState.getString("query")
+            savedQuery?.let {
+                searchData(savedQuery)
+            }
+        }
+        else{
+            loadData()
+        }
         binding.serachView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    searchData(it)
+                    searchData(query)
+                    if (savedInstanceState != null) {
+                        savedInstanceState.putString("query", query)
+                    }
                 }
                 return false
             }
@@ -48,6 +61,7 @@ private val binding by viewBinding (FragmentMainBinding::bind)
                 return false
             }
         })
+
     }
         fun compositeSameWork(): ProductApiServise {
             val retrofit= Retrofit.Builder()
@@ -72,7 +86,6 @@ private val binding by viewBinding (FragmentMainBinding::bind)
                 .subscribe(this::handleResponse))
         }
          fun handleResponse(productList : List<ProductModel>){
-
              productModels= ArrayList(productList)
              productModels?.let {
                 recyclerViewAdapder= RecyclerViewAdapder(it)
@@ -94,6 +107,4 @@ private val binding by viewBinding (FragmentMainBinding::bind)
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
-
-
 }
