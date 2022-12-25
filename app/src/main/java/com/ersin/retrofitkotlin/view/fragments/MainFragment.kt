@@ -29,7 +29,6 @@ private val binding by viewBinding (FragmentMainBinding::bind)
     private  var productModels:ArrayList<ProductModel>?=null
     private var compositeDisposable: CompositeDisposable?=null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,11 +44,9 @@ private val binding by viewBinding (FragmentMainBinding::bind)
         }
         else{
             loadData()
+
         }
-        binding.button.setOnClickListener{
-            val action = MainFragmentDirections.actionMainFragmentToCreateFragment(null)
-            findNavController().navigate(action)
-        }
+
         binding.serachView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -65,7 +62,11 @@ private val binding by viewBinding (FragmentMainBinding::bind)
                 return false
             }
         })
-
+        binding.button.setOnClickListener{
+            val product = ProductModel("null",-1,"null","null",0.0)
+            val action = MainFragmentDirections.actionMainFragmentToCreateFragment(product)
+            findNavController().navigate(action)
+        }
     }
         fun compositeSameWork(): ProductApiServise {
             val retrofit= Retrofit.Builder()
@@ -98,8 +99,8 @@ private val binding by viewBinding (FragmentMainBinding::bind)
                      findNavController().navigate(action)
                  }
                 binding.recyclerView.adapter=recyclerViewAdapder
-            }
 
+            }
         }
         override fun onDestroy() {
             super.onDestroy()

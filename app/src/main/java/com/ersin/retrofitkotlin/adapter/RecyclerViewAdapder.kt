@@ -11,10 +11,10 @@ import com.ersin.retrofitkotlin.data.model.ProductModel
 
 
 class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {
-        private  val colors : Array<String> = arrayOf("#dcdcdc","#FFE4E1","#F5F5DC","#F0FFFF","#E6E6FA","#D3D3D3","#C0C0C0","#A9A9A9")//hex color codes
+    private  val colors : Array<String> = arrayOf("#dcdcdc","#FFE4E1","#F5F5DC","#F0FFFF","#E6E6FA","#D3D3D3","#C0C0C0","#A9A9A9")//hex color codes
     var onProductClick: (ProductModel) -> Unit = {}
     class RowHolder(private val binding: RowLayoutBinding,  private val onProductClick: (ProductModel) -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root)  {
 
         fun bind(productModel: ProductModel, colors:Array<String>, position: Int){
             with(binding){
@@ -22,10 +22,12 @@ class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>)
                 textName.text=productModel.title
                 textPrice.text=productModel.price.toString()
                 Glide.with(binding.imageRow).load(productModel.imageData).into(binding.imageRow)
+
                 materyal.setOnClickListener{
                     Toast.makeText(it.context, "tıklandı : ${productModel.title}", Toast.LENGTH_SHORT).show()
                     onProductClick(productModel)
                 }
+
             }
         }
     }
