@@ -1,6 +1,5 @@
 package com.ersin.retrofitkotlin.view.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -9,7 +8,6 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.data.model.ProductModel
 import com.ersin.retrofitkotlin.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {

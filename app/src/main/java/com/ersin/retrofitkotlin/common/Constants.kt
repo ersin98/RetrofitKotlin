@@ -7,4 +7,6 @@ object Constants {
     const val GET_PRODUCTS = "api/products/getall"
 
     const val SEARCH_PRODUCT="api/products/getbytitle"
+
+    const val ADD_PRODUCT="api/products/add"
 }

@@ -7,17 +7,16 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".view.fragments.CreateFragment">
 
-<ImageView
-    android:id="@+id/create_img_product"
-    android:layout_width="wrap_content"
-    android:layout_height="100dp"
-    app:layout_constraintBottom_toTopOf="@+id/create_tv_title"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="ImageContrastCheck"
-    tools:src="@tools:sample/avatars"/>
+    <ImageView
+        android:id="@+id/create_img_product"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/create_tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/img_url"
+        tools:ignore="ImageContrastCheck"
+        tools:src="@tools:sample/avatars" />
 
     <EditText
         android:id="@+id/create_tv_title"
@@ -78,4 +77,16 @@ tools:context=".view.fragments.CreateFragment">
     app:layout_constraintBottom_toTopOf="@+id/create_scrollable"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/create_tv_title"  />
+
+    <EditText
+        android:id="@+id/img_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="https://"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
