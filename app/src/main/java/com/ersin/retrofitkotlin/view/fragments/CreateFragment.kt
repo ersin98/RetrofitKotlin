@@ -1,16 +1,17 @@
 package com.ersin.retrofitkotlin.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.animation.AlphaAnimation
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
+import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.data.model.CreateProductModel
-import com.ersin.retrofitkotlin.data.model.ProductModel
+import com.ersin.retrofitkotlin.data.model.CreateProductRequest
 import com.ersin.retrofitkotlin.data.service.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentCreateBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CreateFragment : Fragment(R.layout.fragment_create) {
     private val binding by viewBinding(FragmentCreateBinding::bind)
+    private var recyclerViewAdapder: RecyclerViewAdapder? = null
     private val args: DetailFragmentArgs by navArgs()
     private var compositeDisposable: CompositeDisposable?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,24 +45,33 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
                 createImgProduct.startAnimation(alphaAnimation)
                 Glide.with(createImgProduct).load(imgUrl.hint).into(createImgProduct)
             }
-        }
-        //deneme amaçlı hemen yüklüyorum
-        val product = CreateProductModel("açıklama","başlık","https://tr.wikipedia.org/wiki/Anasayfa#/media/Dosya:Fratelli_Lumiere.jpg",9.99)
-        addData(product)
-    }
-        fun addData(createProductModel: CreateProductModel){
-            val retrofit= Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build().create(ProductApiServise::class.java)
-
-                compositeDisposable?.add(retrofit.addProduct(createProductModel)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addResponse))
-        }
-        fun addResponse(transactionConfirmation: Boolean){
-
+            createButton2.setOnClickListener{
+                //deneme amaçlı hemen yüklüyorum
+                val product = CreateProductRequest("description","https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg",9.99,"title")
+                val description="description"
+                val imageData="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg"
+                val price = 9.99;
+                val title= "title";
+                val productList: ArrayList<String> = ArrayList<String>()
+                productList.add(description)
+                productList.add(imageData)
+                productList.add(price.toString())
+                productList.add(title)
+                addData(product)
+            }
         }
     }
+
+    fun addData(createProductRequest: CreateProductRequest){
+        val retrofit= Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(ProductApiServise::class.java)
+        compositeDisposable?.add(retrofit.addProduct(createProductRequest)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe())
+    }
+}
+

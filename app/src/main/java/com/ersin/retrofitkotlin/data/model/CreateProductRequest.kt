@@ -6,13 +6,13 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class CreateProductModel (
+data class CreateProductRequest (
     @SerializedName("description")
     val description:String,
-    @SerializedName("title")
-    val title:String,
     @SerializedName("imageData")
     val imageData:String,
     @SerializedName("price")
-    val price: Double
+    val price: Double,
+    @SerializedName("title")
+    val title:String
     ) : Parcelable
