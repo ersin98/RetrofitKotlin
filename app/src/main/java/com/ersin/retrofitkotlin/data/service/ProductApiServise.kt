@@ -1,9 +1,11 @@
 package com.ersin.retrofitkotlin.data.service
 
 import com.ersin.retrofitkotlin.common.Constants.ADD_PRODUCT
+import com.ersin.retrofitkotlin.common.Constants.EDIT_PRODUCT
 import com.ersin.retrofitkotlin.common.Constants.GET_PRODUCTS
 import com.ersin.retrofitkotlin.common.Constants.SEARCH_PRODUCT
 import com.ersin.retrofitkotlin.data.model.CreateProductRequest
+import com.ersin.retrofitkotlin.data.model.EditProductRequest
 import io.reactivex.Observable
 import com.ersin.retrofitkotlin.data.model.ProductModel
 import io.reactivex.Completable
@@ -23,4 +25,7 @@ interface ProductApiServise {
     fun addProduct(@Body createProductRequest:CreateProductRequest ): Completable
     //createProductRequests: CreateProductRequest
     //createProductRequest:ArrayList<Any>
+
+    @POST(EDIT_PRODUCT)
+    fun editProduct(@Body editProductRequest: EditProductRequest):Completable
 }

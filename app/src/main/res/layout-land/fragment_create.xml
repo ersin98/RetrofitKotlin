@@ -7,24 +7,36 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".view.fragments.CreateFragment">
 
+    <EditText
+        android:id="@+id/img_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="https://"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/create_img_product"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintBottom_toTopOf="@+id/create_tv_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHeight_min="3dp"
+        app:layout_constraintStart_toStartOf="@id/img_url"
         app:layout_constraintTop_toBottomOf="@+id/img_url"
-        tools:ignore="ImageContrastCheck"
         tools:src="@tools:sample/avatars" />
 
     <EditText
         android:id="@+id/create_tv_title"
         android:layout_width="0dp"
-        android:hint="Ürün Adı"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:hint="Ürün Adı"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -32,7 +44,8 @@ tools:context=".view.fragments.CreateFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_img_product"/>
+        app:layout_constraintTop_toBottomOf="@+id/create_img_product"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/create_txt_price"
@@ -40,8 +53,8 @@ tools:context=".view.fragments.CreateFragment">
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:hint="0.00"
-        android:minWidth="48dp"
         android:inputType="numberDecimal"
+        android:minWidth="48dp"
         android:minHeight="48dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/create_scrollable"
@@ -51,7 +64,7 @@ tools:context=".view.fragments.CreateFragment">
 <ScrollView
     android:id="@+id/create_scrollable"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="200dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -63,8 +76,9 @@ tools:context=".view.fragments.CreateFragment">
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:hint="açıklama"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"  />
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </ScrollView>
 
@@ -73,20 +87,10 @@ tools:context=".view.fragments.CreateFragment">
     android:layout_width="119dp"
     android:layout_height="49dp"
     android:layout_marginBottom="2dp"
-    android:text="Düzenle"
+    android:text="Kaydet"
     app:layout_constraintBottom_toTopOf="@+id/create_scrollable"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/create_tv_title"  />
+    app:layout_constraintTop_toBottomOf="@+id/create_tv_title" />
 
-    <EditText
-        android:id="@+id/img_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="https://"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

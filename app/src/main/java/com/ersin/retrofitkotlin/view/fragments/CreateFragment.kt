@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CreateFragment : Fragment(R.layout.fragment_create) {
     private val binding by viewBinding(FragmentCreateBinding::bind)
-    private var recyclerViewAdapder: RecyclerViewAdapder? = null
     private val args: DetailFragmentArgs by navArgs()
     private var compositeDisposable: CompositeDisposable?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,15 +47,6 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             createButton2.setOnClickListener{
                 //deneme amaçlı hemen yüklüyorum
                 val product = CreateProductRequest("description","https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg",9.99,"title")
-                val description="description"
-                val imageData="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg"
-                val price = 9.99;
-                val title= "title";
-                val productList: ArrayList<String> = ArrayList<String>()
-                productList.add(description)
-                productList.add(imageData)
-                productList.add(price.toString())
-                productList.add(title)
                 addData(product)
             }
         }

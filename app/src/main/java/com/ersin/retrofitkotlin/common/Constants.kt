@@ -9,4 +9,8 @@ object Constants {
     const val SEARCH_PRODUCT="api/products/getbytitle"
 
     const val ADD_PRODUCT="api/products/add"
+
+    const val DELETE_PRODUCT="api/products/delete"
+
+    const val EDIT_PRODUCT="api/products/update"
 }
