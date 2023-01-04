@@ -1,6 +1,7 @@
 package com.ersin.retrofitkotlin.data.service
 
 import com.ersin.retrofitkotlin.common.Constants.ADD_PRODUCT
+import com.ersin.retrofitkotlin.common.Constants.DELETE_PRODUCT
 import com.ersin.retrofitkotlin.common.Constants.EDIT_PRODUCT
 import com.ersin.retrofitkotlin.common.Constants.GET_PRODUCTS
 import com.ersin.retrofitkotlin.common.Constants.SEARCH_PRODUCT
@@ -28,4 +29,7 @@ interface ProductApiServise {
 
     @POST(EDIT_PRODUCT)
     fun editProduct(@Body editProductRequest: EditProductRequest):Completable
+
+    @POST(DELETE_PRODUCT)
+    fun deleteProduct(@Query("id") deleteId:Int):Completable
 }

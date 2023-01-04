@@ -58,8 +58,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         })
         binding.button.setOnClickListener{
-            val product = ProductModel("null",-1,"null","null",0.0)
-            val action = MainFragmentDirections.actionMainFragmentToCreateFragment(product)
+            val action = MainFragmentDirections.actionMainFragmentToCreateFragment()
             findNavController().navigate(action)
         }
     }

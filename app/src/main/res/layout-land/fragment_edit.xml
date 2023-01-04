@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragments.EditFragment">
-
     <EditText
         android:id="@+id/edit_img_url"
         android:layout_width="match_parent"
@@ -91,6 +90,5 @@
         app:layout_constraintBottom_toTopOf="@+id/edit_scrollable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_tv_title" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

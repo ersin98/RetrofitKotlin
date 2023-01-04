@@ -36,10 +36,9 @@
         android:name="com.ersin.retrofitkotlin.view.fragments.CreateFragment"
         android:label="fragment_create"
         tools:layout="@layout/fragment_create" >
-        <argument
-            android:name="product"
-            app:argType="com.ersin.retrofitkotlin.data.model.ProductModel"
-            app:nullable="true" />
+        <action
+            android:id="@+id/action_createFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
@@ -47,7 +46,10 @@
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" >
         <argument
-            android:name="product"
+            android:name="produckModel"
             app:argType="com.ersin.retrofitkotlin.data.model.ProductModel" />
+        <action
+            android:id="@+id/action_editFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

@@ -24,7 +24,6 @@ class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>)
                 Glide.with(binding.imageRow).load(productModel.imageData).into(binding.imageRow)
 
                 materyal.setOnClickListener{
-                    Toast.makeText(it.context, "tıklandı : ${productModel.title}", Toast.LENGTH_SHORT).show()
                     onProductClick(productModel)
                 }
 
