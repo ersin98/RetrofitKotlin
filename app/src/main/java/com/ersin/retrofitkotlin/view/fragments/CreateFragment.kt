@@ -1,5 +1,6 @@
 package com.ersin.retrofitkotlin.view.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -40,23 +41,71 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
                 val product = CreateProductRequest("description","https://www.maxpixel.net/static/photo/1x/Massage-Internet-Plus-Seo-Icon-Social-Add-4608104.png",9.99,"title")
                 addProduct(product)
 
-                val action= CreateFragmentDirections.actionCreateFragmentToMainFragment()
-                findNavController().navigate(action)
+
             }
         }
     }
+    /*
+        fun addProduct(createProductRequest: CreateProductRequest){
+            val retrofit= Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(ProductApiServise::class.java)
 
-    fun addProduct(createProductRequest: CreateProductRequest){
-        val retrofit= Retrofit.Builder()
+            compositeDisposable?.add(
+                retrofit.addProduct(createProductRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe())
+        }*//*
+    fun addProduct(createProductRequest: CreateProductRequest) {
+        val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(ProductApiServise::class.java)
 
-        compositeDisposable?.add(retrofit.addProduct(createProductRequest)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe())
+        compositeDisposable?.add(
+            retrofit.addProduct(createProductRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {error(it)}
+                .subscribe()
+        )
+    }*/
+    fun addProduct(createProductRequest: CreateProductRequest) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(ProductApiServise::class.java)
+
+        compositeDisposable?.add(
+            retrofit.addProduct(createProductRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({// İşlem başarılı ise yapılacak işlemler
+                    successful()
+                }, { errorinfo ->// İşlem başarısız ise yapılacak işlemler
+                    error(errorinfo)
+                })
+        )
+    }
+    fun successful(){
+        val action= CreateFragmentDirections.actionCreateFragmentToMainFragment()
+        findNavController().navigate(action)
+    }
+    fun error(throwable: Throwable) {
+        Toast.makeText(context, "${throwable.message})", Toast.LENGTH_LONG).show()
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Hata")
+        builder.setMessage(throwable.message)
+        builder.setPositiveButton("Tamam") { _, _ -> }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
     }
 }
+
 

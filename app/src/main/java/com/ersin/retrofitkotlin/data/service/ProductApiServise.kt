@@ -21,11 +21,15 @@ interface ProductApiServise {
     //fun getData():Call<List<ProductModel>>
     @GET(SEARCH_PRODUCT)
     fun searchPoduct(@Query("title") title:String?):Observable<List<ProductModel>>
-
+/*
     @POST(ADD_PRODUCT)
     fun addProduct(@Body createProductRequest:CreateProductRequest ): Completable
     //createProductRequests: CreateProductRequest
     //createProductRequest:ArrayList<Any>
+*/
+
+    @POST(ADD_PRODUCT)
+    fun addProduct(@Body createProductRequest: CreateProductRequest): Completable
 
     @POST(EDIT_PRODUCT)
     fun editProduct(@Body editProductRequest: EditProductRequest):Completable

@@ -41,7 +41,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     //findNavController().navigate(action)
                 }
                 delete.setOnClickListener{
-                    println( "sıkıntıtın ne"  + producModel.id)
                     deleteProduct(producModel.id)
                     val action= DetailFragmentDirections.actionDetailFragmentToMainFragment()
                     findNavController().navigate(action)
