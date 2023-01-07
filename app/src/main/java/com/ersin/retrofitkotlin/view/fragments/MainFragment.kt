@@ -12,8 +12,8 @@ import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.data.model.ProductModel
-import com.ersin.retrofitkotlin.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.model.ProductModel
+import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentMainBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

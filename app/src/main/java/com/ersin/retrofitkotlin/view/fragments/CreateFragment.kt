@@ -7,14 +7,12 @@ import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
-import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.data.model.CreateProductRequest
-import com.ersin.retrofitkotlin.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.model.CreateProductRequest
+import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentCreateBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -29,6 +27,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
+
         with(binding) {
             imgUrl.hint = "https://www.maxpixel.net/static/photo/1x/Massage-Internet-Plus-Seo-Icon-Social-Add-4608104.png"
             val alphaAnimation = AlphaAnimation(1f, 0.5f)
@@ -40,8 +39,6 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
                 //deneme amaçlı hemen yüklüyorum
                 val product = CreateProductRequest("description","https://www.maxpixel.net/static/photo/1x/Massage-Internet-Plus-Seo-Icon-Social-Add-4608104.png",9.99,"title")
                 addProduct(product)
-
-
             }
         }
     }
@@ -82,15 +79,20 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             .build().create(ProductApiServise::class.java)
 
         compositeDisposable?.add(
-            retrofit.addProduct(createProductRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({// İşlem başarılı ise yapılacak işlemler
-                    successful()
-                }, { errorinfo ->// İşlem başarısız ise yapılacak işlemler
-                    error(errorinfo)
-                })
-        )
+        retrofit.addProduct(createProductRequest)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({// İşlem başarılı ise yapılacak işlemler
+                successful()
+            }, { errorinfo ->// İşlem başarısız ise yapılacak işlemler
+                error(errorinfo)
+            })
+)
+        binding.createButton2.setOnClickListener{
+
+        }
+
+
     }
     fun successful(){
         val action= CreateFragmentDirections.actionCreateFragmentToMainFragment()

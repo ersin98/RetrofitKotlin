@@ -10,9 +10,8 @@ import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.data.model.CreateProductRequest
-import com.ersin.retrofitkotlin.data.model.EditProductRequest
-import com.ersin.retrofitkotlin.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.model.EditProductRequest
+import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentEditBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -58,7 +57,7 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
         }
     }
 
-    fun editData(editProductRequest:EditProductRequest){
+    fun editData(editProductRequest: EditProductRequest){
         val retrofit= Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

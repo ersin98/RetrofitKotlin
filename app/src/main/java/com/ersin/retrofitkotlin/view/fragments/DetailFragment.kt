@@ -2,7 +2,6 @@ package com.ersin.retrofitkotlin.view.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -10,9 +9,7 @@ import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.data.model.CreateProductRequest
-import com.ersin.retrofitkotlin.data.model.EditProductRequest
-import com.ersin.retrofitkotlin.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentDetailBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

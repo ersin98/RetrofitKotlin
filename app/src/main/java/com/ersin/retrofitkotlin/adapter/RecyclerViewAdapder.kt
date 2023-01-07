@@ -3,11 +3,10 @@ package com.ersin.retrofitkotlin.adapter
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.databinding.RowLayoutBinding
-import com.ersin.retrofitkotlin.data.model.ProductModel
+import com.ersin.retrofitkotlin.view.data.model.ProductModel
 
 
 class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {
@@ -24,7 +23,7 @@ class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>)
                 Glide.with(binding.imageRow).load(productModel.imageData).into(binding.imageRow)
 
                 materyal.setOnClickListener{
-                    onProductClick(productModel)
+                    onProductClick(productModel)//yalnızca id bilgisi verilip ilk listede verilmeyen bilgileri ayrıca da isteyebilirdik.
                 }
 
             }
