@@ -30,7 +30,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 tvTitle.text = producModel.title
                 txtPrice.text = "${producModel.price} ₺"
                 textDescription.text = producModel.description
-                Glide.with(imgProduct).load(producModel.imageData).into(imgProduct)
+                Glide.with(imgProduct).load(producModel.image).into(imgProduct)
                 edit.setOnClickListener{
                     //val action = DetailFragmentDirections.actionDetailFragmentToEditFragment(producModel)
                     val action= DetailFragmentDirections.actionDetailFragmentToEditFragment(producModel)

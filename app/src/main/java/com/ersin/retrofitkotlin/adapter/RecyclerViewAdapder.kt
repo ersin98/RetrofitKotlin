@@ -20,7 +20,7 @@ class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>)
                 materyal.setBackgroundColor(Color.parseColor(colors[position%8]))
                 textName.text=productModel.title
                 textPrice.text=productModel.price.toString()
-                Glide.with(binding.imageRow).load(productModel.imageData).into(binding.imageRow)
+                Glide.with(binding.imageRow).load(productModel.image).into(binding.imageRow)
 
                 materyal.setOnClickListener{
                     onProductClick(productModel)//yalnızca id bilgisi verilip ilk listede verilmeyen bilgileri ayrıca da isteyebilirdik.

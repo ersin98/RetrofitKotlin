@@ -79,17 +79,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
     fun searchData(searchtitle:String?){
         val retrofit= compositeSameWork()
-        compositeDisposable?.add(retrofit.searchPoduct(searchtitle)
+        compositeDisposable?.add(
+            retrofit.searchPoduct(searchtitle)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::handleResponse))
     }
     fun handleResponse(productList : List<ProductModel>){
         productModels= ArrayList(productList)
-        productModels?.let { it ->
-            recyclerViewAdapder= RecyclerViewAdapder(it)
-            recyclerViewAdapder!!.onProductClick={
-                val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
+        productModels?.let { productmodelList ->
+            recyclerViewAdapder= RecyclerViewAdapder(productmodelList)
+            recyclerViewAdapder!!.onProductClick={ productModel ->
+                val action = MainFragmentDirections.actionMainFragmentToDetailFragment(productModel)
                 findNavController().navigate(action)
             }
             binding.recyclerView.adapter=recyclerViewAdapder

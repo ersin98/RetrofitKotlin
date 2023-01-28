@@ -28,11 +28,11 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
         with(binding) {
-            args.produckModel.let {productModel->
+            args.product.let {productModel->
                 editTvTitle.hint = productModel.title
                 editTxtPrice.hint = productModel.price.toString()
                 editTextDescription.hint = productModel.description
-                editImgUrl.hint = productModel.imageData
+                editImgUrl.hint = productModel.image
 
                 editButton2.setOnClickListener{
                     /*

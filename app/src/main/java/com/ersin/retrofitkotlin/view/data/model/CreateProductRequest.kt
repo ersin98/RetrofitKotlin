@@ -9,8 +9,8 @@ import kotlinx.parcelize.Parcelize
 data class CreateProductRequest (
     @SerializedName("description")
     val description:String,
-    @SerializedName("imageData")
-    val imageData:String,
+    @SerializedName("image")
+    val image:String,
     @SerializedName("price")
     val price: Double,
     @SerializedName("title")

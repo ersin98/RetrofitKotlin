@@ -13,8 +13,8 @@ data class ProductModel (
     val id:Int,
     @SerializedName("title")
     val title:String,
-    @SerializedName("imageData")
-    val imageData:String,
+    @SerializedName("image")
+    val image:String,
     @SerializedName("price")
     val price: Double
     ) : Parcelable

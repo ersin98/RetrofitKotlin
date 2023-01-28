@@ -79,7 +79,6 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:2.5.1"
 
-
     //Picasso, Resim üzerinde oynama yapabilmek için
     implementation 'com.squareup.picasso:picasso:2.71828'
 }
