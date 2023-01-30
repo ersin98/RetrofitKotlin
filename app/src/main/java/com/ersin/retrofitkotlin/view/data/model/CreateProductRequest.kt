@@ -8,11 +8,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CreateProductRequest (
     @SerializedName("description")
-    val description:String,
+    val description:String?,
     @SerializedName("image")
-    val image:String,
+    val image:String?,
     @SerializedName("price")
-    val price: Double,
+    val price: Double?,
     @SerializedName("title")
-    val title:String
-    ) : Parcelable
+    val title:String?
+) : Parcelable

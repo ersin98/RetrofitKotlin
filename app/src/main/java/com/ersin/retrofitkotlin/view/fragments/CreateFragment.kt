@@ -41,9 +41,14 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             createImgProduct.startAnimation(alphaAnimation)
             Glide.with(createImgProduct).load(imgUrl.hint).into(createImgProduct)
             createButton2.setOnClickListener{
-                //deneme amaçlı hemen yüklüyorum
-                val product = CreateProductRequest("aççççıııklaaaamaaa","resim",45.65,"falan filannnnn")
-
+               // val title1 =createTvTitle.text?.toString() ?: "null"//olmaz çünkü toString null döndürüyor
+               // val title = if (!createTvTitle.text.toString().isNullOrEmpty()) createTvTitle.text.toString() else "null"
+                val product = CreateProductRequest(
+                    if (!createTextDescription.text.isNullOrEmpty())createTextDescription.text.toString() else "null",
+                    if (!imgUrl.text.isNullOrEmpty())imgUrl.text.toString() else "null",
+                    if (!createTxtPrice.text.isNullOrEmpty()) createTxtPrice.text.toString().toDouble() else 0.0,
+                    if (!createTvTitle.text.isNullOrEmpty()) createTvTitle.text.toString() else "null"
+                )
                 addProduct(product)
             }
         }
