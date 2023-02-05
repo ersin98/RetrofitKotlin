@@ -8,13 +8,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class EditProductRequest (
     @SerializedName("description")
-    val description:String,
+    var description:String,
     @SerializedName("image")
-    val image:String,
+    var image:String,
     @SerializedName("price")
-    val price: Double,
+    var price: Double,
     @SerializedName("title")
-    val title:String,
+    var title:String,
     @SerializedName("id")
-    val id:Int
+    var id:Int
 ) : Parcelable

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".view.fragments.CreateFragment">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.CreateFragment">
 
     <EditText
         android:id="@+id/img_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:hint="https://"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,75 +24,65 @@ tools:context=".view.fragments.CreateFragment">
         android:id="@+id/create_img_product"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginTop="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/create_tv_title"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_min="3dp"
-        app:layout_constraintStart_toStartOf="@id/img_url"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_url"
         tools:src="@tools:sample/avatars" />
 
     <EditText
         android:id="@+id/create_tv_title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:autofillHints=""
         android:hint="Ürün Adı"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/create_txt_price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_img_product"
-        android:autofillHints="" />
+        app:layout_constraintEnd_toEndOf="@+id/create_img_product"
+        app:layout_constraintStart_toStartOf="@+id/create_img_product"
+        app:layout_constraintTop_toBottomOf="@+id/create_img_product" />
 
     <EditText
         android:id="@+id/create_txt_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
         android:hint="0.00"
         android:inputType="numberDecimal"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/create_scrollable"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/create_tv_title"
         app:layout_constraintTop_toBottomOf="@+id/create_tv_title" />
-
-<ScrollView
-    android:id="@+id/create_scrollable"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/create_txt_price">
 
     <EditText
         android:id="@+id/create_text_description"
-        android:layout_width="match_parent"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left"
         android:hint="açıklama"
-        android:layout_height="match_parent"
+        android:maxWidth="300dp"
+        android:minWidth="90dp"
+        android:minHeight="48dp"
         android:textSize="16sp"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintEnd_toEndOf="@+id/create_button2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/create_txt_price"
+        app:layout_constraintTop_toBottomOf="@+id/create_button2" />
 
-</ScrollView>
-
-<Button
-    android:id="@+id/create_button2"
-    android:layout_width="119dp"
-    android:layout_height="49dp"
-    android:layout_marginBottom="2dp"
-    android:text="Kaydet"
-    app:layout_constraintBottom_toTopOf="@+id/create_scrollable"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/create_tv_title" />
+    <Button
+        android:id="@+id/create_button2"
+        android:layout_width="119dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="10dp"
+        android:text="Kaydet"
+        app:layout_constraintEnd_toEndOf="@+id/create_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/create_tv_title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

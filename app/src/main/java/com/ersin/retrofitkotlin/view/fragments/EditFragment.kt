@@ -35,14 +35,25 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
                 editImgUrl.hint = productModel.image
 
                 editButton2.setOnClickListener{
-                    /*
                     editTvTitle.hint = productModel.title
-                    var product = EditProductRequest(editTextDescription.text.toString(),editImgUrl.text.toString(),editTxtPrice.text.toString().toDouble(),editTvTitle.text.toString(),productModel.id)
-                    */
-                    //deneme amaçlı hemen değiştiriyorum
-                    val product = EditProductRequest("description","https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg",9.99,"değiştirildi",productModel.id)
-                    editData(product)
+                    //var product = EditProductRequest(editTextDescription.text.toString(),editImgUrl.text.toString(),editTxtPrice.text.toString().toDouble(),editTvTitle.text.toString(),productModel.id)
+                    var product = EditProductRequest("null","null",0.0,"null",productModel.id)
 
+                    if(!editTextDescription.text.isNullOrEmpty()){
+                     product.description = editTextDescription.text.toString()
+                    }
+                    if (!editImgUrl.text.isNullOrEmpty()){
+                        product.image = editImgUrl.text.toString()
+                    }
+                    if (!editTxtPrice.text.isNullOrEmpty()){
+                        product.price =editTxtPrice.text.toString().toDouble();
+                    }
+                    if(!editTvTitle.text.isNullOrEmpty()){
+                        product.title = editTvTitle.text.toString()
+                    }
+                    //deneme amaçlı hemen değiştiriyorum
+                    //val product = EditProductRequest("description","https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg",9.99,"değiştirildi",productModel.id)
+                    editData(product)
                     val action= EditFragmentDirections.actionEditFragmentToMainFragment()
                     findNavController().navigate(action)
                 }
