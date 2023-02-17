@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.databinding.RowLayoutBinding
-import com.ersin.retrofitkotlin.view.data.model.ProductModel
+import com.ersin.retrofitkotlin.view.data.model.product.ProductModel
 
 
 class RecyclerViewAdapder(private val productModelList: ArrayList<ProductModel>): RecyclerView.Adapter<RecyclerViewAdapder.RowHolder>() {

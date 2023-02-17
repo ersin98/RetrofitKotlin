@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentDetailBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +19,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
+
+
     private val binding by viewBinding(FragmentDetailBinding::bind)
     private val args: DetailFragmentArgs by navArgs()
     private var compositeDisposable: CompositeDisposable?=null
@@ -26,6 +28,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
         with(binding) {
+
             args.product.let {producModel->
                 tvTitle.text = producModel.title
                 txtPrice.text = "${producModel.price} ₺"
@@ -44,8 +47,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 }
             }
         }
+
     }
     fun deleteProduct(deleteId: Int){
+
         val retrofit= Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

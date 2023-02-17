@@ -1,5 +1,6 @@
 package com.ersin.retrofitkotlin.view.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -10,9 +11,10 @@ import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.view.data.model.EditProductRequest
-import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentEditBinding
+import com.ersin.retrofitkotlin.view.data.model.product.EditProductRequest
+import com.ersin.retrofitkotlin.view.data.model.product.ProductResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -28,6 +30,7 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
         with(binding) {
+
             args.product.let {productModel->
                 editTvTitle.hint = productModel.title
                 editTxtPrice.hint = productModel.price.toString()
@@ -53,9 +56,7 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
                     }
                     //deneme amaçlı hemen değiştiriyorum
                     //val product = EditProductRequest("description","https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg",9.99,"değiştirildi",productModel.id)
-                    editData(product)
-                    val action= EditFragmentDirections.actionEditFragmentToMainFragment()
-                    findNavController().navigate(action)
+                    editProduct(product)
                 }
 
                 val alphaAnimation = AlphaAnimation(1f, 0.5f)
@@ -66,18 +67,43 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
             }
 
         }
+
     }
 
-    fun editData(editProductRequest: EditProductRequest){
+    fun editProduct(editProductRequest: EditProductRequest){
         val retrofit= Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(ProductApiServise::class.java)
 
-        compositeDisposable?.add(retrofit.editProduct(editProductRequest)
+        compositeDisposable?.add(
+            retrofit.editProduct(editProductRequest)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe())
+            .subscribe(this::handleResponse))
+    }
+    fun handleResponse(productResponse : ProductResponse){
+        if(productResponse.done){
+             val action= EditFragmentDirections.actionEditFragmentToMainFragment()
+            findNavController().navigate(action)
+            return
+        }
+
+        if(productResponse.suitable){
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Hata")
+            builder.setMessage("güncelleme işlemi yapılamadı")
+            builder.setPositiveButton("Tamam") { _, _ -> }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        } else{
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Hatalı Veri Girişi")
+            builder.setMessage(productResponse.errorMassage)
+            builder.setPositiveButton("Tamam") { _, _ -> }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
     }
 }

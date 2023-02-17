@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
@@ -38,18 +39,18 @@
             app:destination="@id/editFragment" />
         <argument
             android:name="product"
-            app:argType="com.ersin.retrofitkotlin.view.data.model.ProductModel" />
+            app:argType="com.ersin.retrofitkotlin.view.data.model.product.ProductModel" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
         android:name="com.ersin.retrofitkotlin.view.fragments.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" >
+        <argument
+            android:name="product"
+            app:argType="com.ersin.retrofitkotlin.view.data.model.product.ProductModel" />
         <action
             android:id="@+id/action_editFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-        <argument
-            android:name="product"
-            app:argType="com.ersin.retrofitkotlin.view.data.model.ProductModel" />
     </fragment>
 </navigation>

@@ -6,19 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
-import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
-import com.ersin.retrofitkotlin.view.data.model.CreateProductRequest
-import com.ersin.retrofitkotlin.view.data.service.ProductApiServise
+import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentCreateBinding
-import com.ersin.retrofitkotlin.view.data.model.CreateProductRequestController
-import com.ersin.retrofitkotlin.view.data.model.ProductModel
+import com.ersin.retrofitkotlin.view.data.model.product.CreateProductRequest
+import com.ersin.retrofitkotlin.view.data.model.product.ProductResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CreateFragment : Fragment(R.layout.fragment_create) {
     private val binding by viewBinding(FragmentCreateBinding::bind)
     private var compositeDisposable: CompositeDisposable?=null
-    private  var createProductRequestControllerModels:ArrayList<CreateProductRequestController>?=null
+    //private  var productResponseModels:ArrayList<ProductResponse>?=null//liste yerine tek nesne geldiği için gerek yok
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
@@ -41,8 +39,8 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             createImgProduct.startAnimation(alphaAnimation)
             Glide.with(createImgProduct).load(imgUrl.hint).into(createImgProduct)
             createButton2.setOnClickListener{
-               // val title1 =createTvTitle.text?.toString() ?: "null"//olmaz çünkü toString null döndürüyor
-               // val title = if (!createTvTitle.text.toString().isNullOrEmpty()) createTvTitle.text.toString() else "null"
+                // val title1 =createTvTitle.text?.toString() ?: "null"//olmaz çünkü toString null döndürüyor
+                // val title = if (!createTvTitle.text.toString().isNullOrEmpty()) createTvTitle.text.toString() else "null"
                 val product = CreateProductRequest(
                     if (!createTextDescription.text.isNullOrEmpty())createTextDescription.text.toString() else "null",
                     if (!imgUrl.text.isNullOrEmpty())imgUrl.text.toString() else "null",
@@ -66,14 +64,14 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResponse))
     }
-    fun handleResponse(createProductRequestControllers : CreateProductRequestController){
-        if(createProductRequestControllers.done){
+    fun handleResponse(productResponse : ProductResponse){
+        if(productResponse.done){
             val action= CreateFragmentDirections.actionCreateFragmentToMainFragment()
             findNavController().navigate(action)
             return
         }
 
-        if(createProductRequestControllers.suitable){
+        if(productResponse.suitable){
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Hata")
             builder.setMessage("ekleme işlemi yapılamadı")
@@ -83,32 +81,34 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         } else{
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Hatalı Veri Girişi")
-            builder.setMessage(createProductRequestControllers.errorMassage)
+            builder.setMessage(productResponse.errorMassage)
             builder.setPositiveButton("Tamam") { _, _ -> }
             val dialog: AlertDialog = builder.create()
             dialog.show()
         }
     }
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable?.clear()
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
 }
 /*
-fun successful(){
-    val action= CreateFragmentDirections.actionCreateFragmentToMainFragment()
-    findNavController().navigate(action)
-}
-fun error(suitable:Boolean,error: String) {//suitable hazır değil
-    Toast.makeText(context, "${error})", Toast.LENGTH_LONG).show()
-}
-
-
-override fun onDestroy() {
-    super.onDestroy()
-    compositeDisposable?.clear()
-}
-override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?,
-): View? {
-    return inflater.inflate(R.layout.fragment_main, container, false)
-}
-}*/
+ fun successful(){
+        val action= CreateFragmentDirections.actionCreateFragmentToMainFragment()
+        findNavController().navigate(action)
+    }
+    fun error(suitable:Boolean,error: String) {//suitable hazır değil
+        Toast.makeText(context, "${error})", Toast.LENGTH_LONG).show()
+    }
+*/
 
