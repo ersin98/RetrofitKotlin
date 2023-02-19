@@ -85,9 +85,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val retrofit= compositeSameWork()
         compositeDisposable?.add(
             retrofit.searchPoduct(searchtitle)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::handleResponse))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResponse))
     }
     fun handleResponse(productList : List<ProductModel>){
         productModels= ArrayList(productList)
@@ -100,10 +100,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.recyclerView.adapter=recyclerViewAdapder
         }
     }
-
-}
-
-/*    override fun onDestroy() {
+   override fun onDestroy() {
         super.onDestroy()
         compositeDisposable?.clear()
     }
@@ -112,4 +109,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
-    }*/
+    }
+}
+

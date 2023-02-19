@@ -30,7 +30,6 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
         with(binding) {
-
             args.product.let {productModel->
                 editTvTitle.hint = productModel.title
                 editTxtPrice.hint = productModel.price.toString()
@@ -43,7 +42,7 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
                     var product = EditProductRequest("null","null",0.0,"null",productModel.id)
 
                     if(!editTextDescription.text.isNullOrEmpty()){
-                     product.description = editTextDescription.text.toString()
+                        product.description = editTextDescription.text.toString()
                     }
                     if (!editImgUrl.text.isNullOrEmpty()){
                         product.image = editImgUrl.text.toString()
@@ -79,13 +78,13 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
 
         compositeDisposable?.add(
             retrofit.editProduct(editProductRequest)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::handleResponse))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResponse))
     }
     fun handleResponse(productResponse : ProductResponse){
         if(productResponse.done){
-             val action= EditFragmentDirections.actionEditFragmentToMainFragment()
+            val action= EditFragmentDirections.actionEditFragmentToMainFragment()
             findNavController().navigate(action)
             return
         }

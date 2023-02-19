@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class EditCategoryRequest(
     @SerializedName("id")
-    val id:Int?,
+    val id:Int,
     @SerializedName("name")
-    val name:String?
+    val name:String
 ):Parcelable

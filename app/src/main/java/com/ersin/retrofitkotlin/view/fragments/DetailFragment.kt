@@ -19,8 +19,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-
-
     private val binding by viewBinding(FragmentDetailBinding::bind)
     private val args: DetailFragmentArgs by navArgs()
     private var compositeDisposable: CompositeDisposable?=null
@@ -35,10 +33,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 textDescription.text = producModel.description
                 Glide.with(imgProduct).load(producModel.image).into(imgProduct)
                 edit.setOnClickListener{
-                    //val action = DetailFragmentDirections.actionDetailFragmentToEditFragment(producModel)
-                    val action= DetailFragmentDirections.actionDetailFragmentToEditFragment(producModel)
+                    val action = DetailFragmentDirections.actionDetailFragmentToEditFragment(producModel)
                     findNavController().navigate(action)
-                    //findNavController().navigate(action)
                 }
                 delete.setOnClickListener{
                     deleteProduct(producModel.id)

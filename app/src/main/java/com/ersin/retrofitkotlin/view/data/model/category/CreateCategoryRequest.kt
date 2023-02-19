@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class CreateCategoryRequest (
     @SerializedName("name")
-    val name:String?
+    val name:String
 ): Parcelable

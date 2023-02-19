@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
@@ -30,17 +29,23 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     //private  var productResponseModels:ArrayList<ProductResponse>?=null//liste yerine tek nesne geldiği için gerek yok
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        println("Durum ne :sayfa açıldııııııııııııııııı")
         CompositeDisposable().also { compositeDisposable = it }
-        with(binding) {
+        println("Durum ne :compozit pompozit")
+       with(binding) {
+            println("Durum ne :binding")
             imgUrl.hint = "https://www.maxpixel.net/static/photo/1x/Massage-Internet-Plus-Seo-Icon-Social-Add-4608104.png"
             val alphaAnimation = AlphaAnimation(1f, 0.5f)
             alphaAnimation.duration = 100
             alphaAnimation.fillAfter = true
             createImgProduct.startAnimation(alphaAnimation)
             Glide.with(createImgProduct).load(imgUrl.hint).into(createImgProduct)
+            println("Durum ne :animasyon yapıldı")
             createButton2.setOnClickListener{
-                // val title1 =createTvTitle.text?.toString() ?: "null"//olmaz çünkü toString null döndürüyor
-                // val title = if (!createTvTitle.text.toString().isNullOrEmpty()) createTvTitle.text.toString() else "null"
+                println("Durum ne :oluştur butonuna tıklandı")
+                //val title1 =createTvTitle.text?.toString() ?: "null"//olmaz çünkü toString null döndürüyor
+                //val title = if (!createTvTitle.text.toString().isNullOrEmpty()) createTvTitle.text.toString() else "null"
                 val product = CreateProductRequest(
                     if (!createTextDescription.text.isNullOrEmpty())createTextDescription.text.toString() else "null",
                     if (!imgUrl.text.isNullOrEmpty())imgUrl.text.toString() else "null",
@@ -89,18 +94,17 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     }
 
 
-
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable?.clear()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return inflater.inflate(R.layout.fragment_create, container, false)
     }
-
 }
 /*
  fun successful(){
