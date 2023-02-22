@@ -14,8 +14,8 @@ import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentCreateBinding
-import com.ersin.retrofitkotlin.view.data.model.product.CreateProductRequest
-import com.ersin.retrofitkotlin.view.data.model.product.ProductResponse
+import com.ersin.retrofitkotlin.view.data.requests.product.CreateProductRequest
+import com.ersin.retrofitkotlin.view.data.responses.product.ProductResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -30,20 +30,15 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        println("Durum ne :sayfa açıldııııııııııııııııı")
         CompositeDisposable().also { compositeDisposable = it }
-        println("Durum ne :compozit pompozit")
        with(binding) {
-            println("Durum ne :binding")
             imgUrl.hint = "https://www.maxpixel.net/static/photo/1x/Massage-Internet-Plus-Seo-Icon-Social-Add-4608104.png"
             val alphaAnimation = AlphaAnimation(1f, 0.5f)
             alphaAnimation.duration = 100
             alphaAnimation.fillAfter = true
             createImgProduct.startAnimation(alphaAnimation)
             Glide.with(createImgProduct).load(imgUrl.hint).into(createImgProduct)
-            println("Durum ne :animasyon yapıldı")
             createButton2.setOnClickListener{
-                println("Durum ne :oluştur butonuna tıklandı")
                 //val title1 =createTvTitle.text?.toString() ?: "null"//olmaz çünkü toString null döndürüyor
                 //val title = if (!createTvTitle.text.toString().isNullOrEmpty()) createTvTitle.text.toString() else "null"
                 val product = CreateProductRequest(

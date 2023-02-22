@@ -6,10 +6,10 @@ import com.ersin.retrofitkotlin.common.Constants.EDIT_PRODUCT
 import com.ersin.retrofitkotlin.common.Constants.GET_PRODUCTS
 import com.ersin.retrofitkotlin.common.Constants.SEARCH_PRODUCT
 import com.ersin.retrofitkotlin.view.data.model.*
-import com.ersin.retrofitkotlin.view.data.model.product.CreateProductRequest
-import com.ersin.retrofitkotlin.view.data.model.product.EditProductRequest
-import com.ersin.retrofitkotlin.view.data.model.product.ProductModel
-import com.ersin.retrofitkotlin.view.data.model.product.ProductResponse
+import com.ersin.retrofitkotlin.view.data.requests.product.CreateProductRequest
+import com.ersin.retrofitkotlin.view.data.requests.product.EditProductRequest
+import com.ersin.retrofitkotlin.view.data.responses.product.ProductModel
+import com.ersin.retrofitkotlin.view.data.responses.product.ProductResponse
 import io.reactivex.Observable
 import io.reactivex.Completable
 import retrofit2.http.Body

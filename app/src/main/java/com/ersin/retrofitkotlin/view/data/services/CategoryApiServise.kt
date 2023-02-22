@@ -5,10 +5,10 @@ import com.ersin.retrofitkotlin.common.Constants.DELETE_CATEGORY
 import com.ersin.retrofitkotlin.common.Constants.EDIT_CATEGORY
 import com.ersin.retrofitkotlin.common.Constants.GET_CATEGORY
 import com.ersin.retrofitkotlin.view.data.model.*
-import com.ersin.retrofitkotlin.view.data.model.product.CreateProductRequest
-import com.ersin.retrofitkotlin.view.data.model.product.EditProductRequest
-import com.ersin.retrofitkotlin.view.data.model.product.ProductModel
-import com.ersin.retrofitkotlin.view.data.model.product.ProductResponse
+import com.ersin.retrofitkotlin.view.data.responses.category.CategoryModel
+import com.ersin.retrofitkotlin.view.data.requests.product.CreateProductRequest
+import com.ersin.retrofitkotlin.view.data.requests.product.EditProductRequest
+import com.ersin.retrofitkotlin.view.data.responses.product.ProductResponse
 import io.reactivex.Observable
 import io.reactivex.Completable
 import retrofit2.http.Body
@@ -18,7 +18,7 @@ import retrofit2.http.Query
 
 interface CategoryApiServise {
     @GET(GET_CATEGORY)
-    fun getCategory():Observable<List<ProductModel>>
+    fun getCategory():Observable<List<CategoryModel>>
 
     @POST(ADD_CATEGORY)
     fun addCategory(@Body createProductRequest: CreateProductRequest):Observable<ProductResponse>

@@ -1,4 +1,4 @@
-package com.ersin.retrofitkotlin.view.data.model.product
+package com.ersin.retrofitkotlin.view.data.requests.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -6,15 +6,13 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class EditProductRequest (
+data class CreateProductRequest (
     @SerializedName("description")
-    var description:String,
+    val description:String,
     @SerializedName("image")
-    var image:String,
+    val image:String,
     @SerializedName("price")
-    var price: Double,
+    val price: Double,
     @SerializedName("title")
-    var title:String,
-    @SerializedName("id")
-    var id:Int
+    val title:String
 ) : Parcelable

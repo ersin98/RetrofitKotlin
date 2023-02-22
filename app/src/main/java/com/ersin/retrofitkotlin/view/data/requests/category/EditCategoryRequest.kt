@@ -1,4 +1,4 @@
-package com.ersin.retrofitkotlin.view.data.model.category
+package com.ersin.retrofitkotlin.view.data.requests.category
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
