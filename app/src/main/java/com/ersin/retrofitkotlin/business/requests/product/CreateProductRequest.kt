@@ -1,4 +1,4 @@
-package com.ersin.retrofitkotlin.view.data.requests.product
+package com.ersin.retrofitkotlin.business.requests.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -14,5 +14,7 @@ data class CreateProductRequest (
     @SerializedName("price")
     val price: Double,
     @SerializedName("title")
-    val title:String
+    val title:String,
+    @SerializedName("categoryId")
+    val categoryId: Int
 ) : Parcelable

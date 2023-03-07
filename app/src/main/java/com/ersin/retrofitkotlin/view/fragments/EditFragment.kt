@@ -13,8 +13,7 @@ import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentEditBinding
-import com.ersin.retrofitkotlin.view.data.requests.product.EditProductRequest
-import com.ersin.retrofitkotlin.view.data.responses.product.ProductResponse
+import com.ersin.retrofitkotlin.business.requests.product.EditProductRequest
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

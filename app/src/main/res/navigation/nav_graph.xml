@@ -39,18 +39,17 @@
             app:destination="@id/editFragment" />
         <argument
             android:name="product"
-            app:argType="com.ersin.retrofitkotlin.view.data.model.product.ProductModel" />
+            app:argType="com.ersin.retrofitkotlin.view.data.responses.product.ProductModel" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
         android:name="com.ersin.retrofitkotlin.view.fragments.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" >
-        <argument
-            android:name="product"
-            app:argType="com.ersin.retrofitkotlin.view.data.model.product.ProductModel" />
         <action
             android:id="@+id/action_editFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument android:name="product"
+            app:argType="com.ersin.retrofitkotlin.view.data.responses.product.ProductModel" />
     </fragment>
 </navigation>

@@ -1,12 +1,11 @@
-package com.ersin.retrofitkotlin.view.data.responses.product
+package com.ersin.retrofitkotlin.business.responses.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
-data class ProductModel (
+class GetByCategoryProductResponse (
     @SerializedName("description")
     val description:String,
     @SerializedName("id")
@@ -17,6 +16,6 @@ data class ProductModel (
     val image:String,
     @SerializedName("price")
     val price: Double,
-    @SerializedName("category")
-    val categoryID: Integer
+    @SerializedName("categoryname")
+    val categoryName: Int
 ) : Parcelable

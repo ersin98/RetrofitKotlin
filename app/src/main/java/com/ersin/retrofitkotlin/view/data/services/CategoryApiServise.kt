@@ -1,17 +1,18 @@
 package com.ersin.retrofitkotlin.view.data.services
 
 import com.ersin.retrofitkotlin.common.Constants.ADD_CATEGORY
+import com.ersin.retrofitkotlin.common.Constants.DELETE_ALL_CATEGORY
 import com.ersin.retrofitkotlin.common.Constants.DELETE_CATEGORY
-import com.ersin.retrofitkotlin.common.Constants.EDIT_CATEGORY
 import com.ersin.retrofitkotlin.common.Constants.GET_CATEGORY
+import com.ersin.retrofitkotlin.common.Constants.UPDATE_CATEGORY
 import com.ersin.retrofitkotlin.view.data.model.*
-import com.ersin.retrofitkotlin.view.data.responses.category.CategoryModel
-import com.ersin.retrofitkotlin.view.data.requests.product.CreateProductRequest
-import com.ersin.retrofitkotlin.view.data.requests.product.EditProductRequest
-import com.ersin.retrofitkotlin.view.data.responses.product.ProductResponse
+import com.ersin.retrofitkotlin.business.responses.category.CategoryModel
+import com.ersin.retrofitkotlin.business.requests.product.CreateProductRequest
+import com.ersin.retrofitkotlin.business.requests.product.EditProductRequest
 import io.reactivex.Observable
 import io.reactivex.Completable
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -21,11 +22,13 @@ interface CategoryApiServise {
     fun getCategory():Observable<List<CategoryModel>>
 
     @POST(ADD_CATEGORY)
-    fun addCategory(@Body createProductRequest: CreateProductRequest):Observable<ProductResponse>
+    fun addCategory(@Body createProductRequest: CreateProductRequest):Completable
 
-    @POST(EDIT_CATEGORY)
+    @POST(UPDATE_CATEGORY)
     fun editCategory(@Body editProductRequest: EditProductRequest):Observable<ProductResponse>
 
-    @POST(DELETE_CATEGORY)
+    @DELETE(DELETE_ALL_CATEGORY)
+    fun deleteAllCategory():Completable
+    @DELETE(DELETE_CATEGORY)
     fun deleteCategory(@Query("id") deleteId:Int):Completable
 }

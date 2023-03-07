@@ -1,7 +1,7 @@
-package com.ersin.retrofitkotlin.view.data.responses.category
+package com.ersin.retrofitkotlin.business.responses.category
 
 import android.os.Parcelable
-import com.ersin.retrofitkotlin.view.data.responses.product.ProductModel
+import com.ersin.retrofitkotlin.business.responses.product.ProductModel
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

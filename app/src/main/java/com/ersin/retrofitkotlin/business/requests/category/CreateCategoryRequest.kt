@@ -1,13 +1,11 @@
-package com.ersin.retrofitkotlin.view.data.requests.category
+package com.ersin.retrofitkotlin.business.requests.category
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class EditCategoryRequest(
-    @SerializedName("id")
-    val id:Int,
+class CreateCategoryRequest (
     @SerializedName("name")
     val name:String
-):Parcelable
+): Parcelable
