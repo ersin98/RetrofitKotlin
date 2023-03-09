@@ -4,8 +4,8 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AlphaAnimation
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.ersin.retrofitkotlin.R
@@ -13,7 +13,7 @@ import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentEditBinding
-import com.ersin.retrofitkotlin.business.requests.product.EditProductRequest
+import com.ersin.retrofitkotlin.business.requests.product.UpdateProductRequest
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,16 +29,16 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
         super.onViewCreated(view, savedInstanceState)
         CompositeDisposable().also { compositeDisposable = it }
         with(binding) {
-            args.product.let {productModel->
-                editTvTitle.hint = productModel.title
-                editTxtPrice.hint = productModel.price.toString()
-                editTextDescription.hint = productModel.description
-                editImgUrl.hint = productModel.image
+            args.product.let {product->
+                editTvTitle.hint = product.title
+                editTxtPrice.hint = product.price.toString()
+                editTextDescription.hint = product.description
+                editImgUrl.hint = product.image
 
                 editButton2.setOnClickListener{
-                    editTvTitle.hint = productModel.title
+                    editTvTitle.hint = product.title
                     //var product = EditProductRequest(editTextDescription.text.toString(),editImgUrl.text.toString(),editTxtPrice.text.toString().toDouble(),editTvTitle.text.toString(),productModel.id)
-                    var product = EditProductRequest("null","null",0.0,"null",productModel.id)
+                    var product = UpdateProductRequest("null","null",0.0,"null",product.id,5)//categoryId kısmını şimdilik hemen veriyorum
 
                     if(!editTextDescription.text.isNullOrEmpty()){
                         product.description = editTextDescription.text.toString()
@@ -68,7 +68,7 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
 
     }
 
-    fun editProduct(editProductRequest: EditProductRequest){
+    fun editProduct(editProductRequest: UpdateProductRequest){
         val retrofit= Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -79,29 +79,12 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
             retrofit.editProduct(editProductRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResponse))
-    }
-    fun handleResponse(productResponse : ProductResponse){
-        if(productResponse.done){
-            val action= EditFragmentDirections.actionEditFragmentToMainFragment()
-            findNavController().navigate(action)
-            return
-        }
-
-        if(productResponse.suitable){
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle("Hata")
-            builder.setMessage("güncelleme işlemi yapılamadı")
-            builder.setPositiveButton("Tamam") { _, _ -> }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
-        } else{
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle("Hatalı Veri Girişi")
-            builder.setMessage(productResponse.errorMassage)
-            builder.setPositiveButton("Tamam") { _, _ -> }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
-        }
+                .subscribe({
+                    // İşlem başarılı oldu
+                    Toast.makeText(context, "Product created successfully", Toast.LENGTH_SHORT).show()
+                }, { error ->
+                    // Hata oluştu
+                    Toast.makeText(context, "Error creating product: ${error.message}", Toast.LENGTH_SHORT).show()
+                }))
     }
 }

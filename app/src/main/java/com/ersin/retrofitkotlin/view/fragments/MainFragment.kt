@@ -14,7 +14,7 @@ import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
 import com.ersin.retrofitkotlin.databinding.FragmentMainBinding
-import com.ersin.retrofitkotlin.business.responses.product.ProductModel
+import com.ersin.retrofitkotlin.entities.concretes.Product
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding by viewBinding (FragmentMainBinding::bind)
     private var recyclerViewAdapder: RecyclerViewAdapder? = null
-    private  var productModels:ArrayList<ProductModel>?=null
+    private  var product:ArrayList<Product>?=null
     private var compositeDisposable: CompositeDisposable?=null
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -89,12 +89,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResponse))
     }
-    fun handleResponse(productList : List<ProductModel>){
-        productModels= ArrayList(productList)
-        productModels?.let { productmodelList ->
-            recyclerViewAdapder= RecyclerViewAdapder(productmodelList)
-            recyclerViewAdapder!!.onProductClick={ productModel ->
-                val action = MainFragmentDirections.actionMainFragmentToDetailFragment(productModel)
+    fun handleResponse(productList : List<Product>){
+        product= ArrayList(productList)
+        product?.let { productList ->
+            recyclerViewAdapder= RecyclerViewAdapder(productList)
+            recyclerViewAdapder!!.onProductClick={ product ->
+                val action = MainFragmentDirections.actionMainFragmentToDetailFragment(product)
                 findNavController().navigate(action)
             }
             binding.recyclerView.adapter=recyclerViewAdapder

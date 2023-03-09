@@ -50,19 +50,19 @@
         android:id="@+id/create_txt_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:hint="0.00"
         android:inputType="numberDecimal"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/create_tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/create_tv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
 
     <EditText
         android:id="@+id/create_text_description"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="left"
         android:hint="açıklama"
@@ -79,10 +79,30 @@
         android:id="@+id/create_button2"
         android:layout_width="119dp"
         android:layout_height="49dp"
-        android:layout_marginTop="10dp"
         android:text="Kaydet"
         app:layout_constraintEnd_toEndOf="@+id/create_tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/create_tv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:hint="@string/select"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/create_tv_title"
+        app:layout_constraintStart_toStartOf="@+id/create_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/create_tv_title"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/auto_Complete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

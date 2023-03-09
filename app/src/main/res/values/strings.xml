@@ -5,4 +5,5 @@
     <string name="todo">TODO</string>
     <string name="yeni_olu_tur">Yeni Oluştur</string>
     <string name="product_name">Ürün Adı</string>
+    <string name="select">Select Item</string>
 </resources>
