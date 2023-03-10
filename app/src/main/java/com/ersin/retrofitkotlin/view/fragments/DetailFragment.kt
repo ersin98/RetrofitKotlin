@@ -27,17 +27,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         CompositeDisposable().also { compositeDisposable = it }
         with(binding) {
 
-            args.product.let {producModel->
-                tvTitle.text = producModel.title
-                txtPrice.text = "${producModel.price} ₺"
-                textDescription.text = producModel.description
-                Glide.with(imgProduct).load(producModel.image).into(imgProduct)
+            args.product.let {produc->
+                tvTitle.text = produc.title
+                txtPrice.text = "${produc.price} ₺"
+                textDescription.text = produc.description
+                Glide.with(imgProduct).load(produc.image).into(imgProduct)
                 edit.setOnClickListener{
-                    val action = DetailFragmentDirections.actionDetailFragmentToEditFragment(producModel)
+                    val action = DetailFragmentDirections.actionDetailFragmentToEditFragment(produc)
                     findNavController().navigate(action)
                 }
                 delete.setOnClickListener{
-                    deleteProduct(producModel.id)
+                    deleteProduct(produc.id)
                     val action= DetailFragmentDirections.actionDetailFragmentToMainFragment()
                     findNavController().navigate(action)
                 }
@@ -46,13 +46,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     }
     fun deleteProduct(deleteId: Int){
-
         val retrofit= Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(ProductApiServise::class.java)
-
         compositeDisposable?.add(retrofit.deleteProduct(deleteId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

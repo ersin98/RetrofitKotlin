@@ -38,23 +38,23 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
                 editButton2.setOnClickListener{
                     editTvTitle.hint = product.title
                     //var product = EditProductRequest(editTextDescription.text.toString(),editImgUrl.text.toString(),editTxtPrice.text.toString().toDouble(),editTvTitle.text.toString(),productModel.id)
-                    var product = UpdateProductRequest("null","null",0.0,"null",product.id,5)//categoryId kısmını şimdilik hemen veriyorum
-
-                    if(!editTextDescription.text.isNullOrEmpty()){
-                        product.description = editTextDescription.text.toString()
-                    }
-                    if (!editImgUrl.text.isNullOrEmpty()){
-                        product.image = editImgUrl.text.toString()
-                    }
-                    if (!editTxtPrice.text.isNullOrEmpty()){
-                        product.price =editTxtPrice.text.toString().toDouble();
-                    }
-                    if(!editTvTitle.text.isNullOrEmpty()){
-                        product.title = editTvTitle.text.toString()
-                    }
-                    //deneme amaçlı hemen değiştiriyorum
-                    //val product = EditProductRequest("description","https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg/300px-Ancient_Sasanid_Cataphract_Uther_Oxford_2003_06_2%281%29.jpg",9.99,"değiştirildi",productModel.id)
-                    editProduct(product)
+                    val updateProduct = UpdateProductRequest(
+                    if(!editTextDescription.text.isNullOrEmpty())
+                       editTextDescription.text.toString()
+                    else product.description,
+                    if (!editImgUrl.text.isNullOrEmpty())
+                      editImgUrl.text.toString()
+                    else product.image,
+                    if (!editTxtPrice.text.isNullOrEmpty())
+                       editTxtPrice.text.toString().toDouble()
+                    else product.price,
+                    if(!editTvTitle.text.isNullOrEmpty())
+                         editTvTitle.text.toString()
+                    else product.title,
+                        product.id,
+                        product.categoryID//şimdilik aldığı kategorinin id sini geri döndürüyor
+                    )
+                    editProduct(updateProduct)
                 }
 
                 val alphaAnimation = AlphaAnimation(1f, 0.5f)

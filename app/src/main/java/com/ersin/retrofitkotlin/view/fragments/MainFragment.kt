@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ersin.retrofitkotlin.R
 import com.ersin.retrofitkotlin.adapter.RecyclerViewAdapder
+import com.ersin.retrofitkotlin.business.responses.product.GetAllProductResponse
+import com.ersin.retrofitkotlin.business.responses.product.GetByQueryProductResponse
 import com.ersin.retrofitkotlin.common.Constants
 import com.ersin.retrofitkotlin.common.viewBinding
 import com.ersin.retrofitkotlin.view.data.services.ProductApiServise
@@ -27,6 +29,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private var recyclerViewAdapder: RecyclerViewAdapder? = null
     private  var product:ArrayList<Product>?=null
     private var compositeDisposable: CompositeDisposable?=null
+    private var mapperService:MapperService=null
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -79,7 +82,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         compositeDisposable?.add(retrofit.getProduct()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::handleResponse))
+            .subscribe(this::handleGetProductResponse))
     }
     fun searchData(searchtitle:String?){
         val retrofit= compositeSameWork()
@@ -89,8 +92,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResponse))
     }
+    fun handleGetProductResponse(productList : List<GetAllProductResponse>){
+        val productResponses = productList.map {getAllProductResponse->
+            mapperService.forResponse().map(getAllProductResponse, Product::class.java)
+        }
+        product= ArrayList(productResponses)
+        product?.let { productList ->
+            recyclerViewAdapder= RecyclerViewAdapder(productList)
+            recyclerViewAdapder!!.onProductClick={ product ->
+                val action = MainFragmentDirections.actionMainFragmentToDetailFragment(product)
+                findNavController().navigate(action)
+            }
+            binding.recyclerView.adapter=recyclerViewAdapder
+        }
+    }
     fun handleResponse(productList : List<Product>){
         product= ArrayList(productList)
+
         product?.let { productList ->
             recyclerViewAdapder= RecyclerViewAdapder(productList)
             recyclerViewAdapder!!.onProductClick={ product ->
